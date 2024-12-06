@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
 
     <section class="header">
@@ -18,35 +20,36 @@
                 <a class="navbar-brand" href="#">
                     <img src="img/logo.png" width="160" alt="Logotipo do Restaurante">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
-                  <span class="navbar-toggler-icon">
-                    <i class="fas fa-bars"></i>
-                  </span>
-                </button>
-              
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                  <ul class="navbar-nav ml-auto mr-auto">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#reservas"><b>Reservas</b></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#servicos"><b>Serviços</b></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#cardapio"><b>Cardápio</b></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#depoimentos"><b>Depoimentos</b></a>
-                    </li>
-                  </ul>
-                  <a class="btn btn-white btn-icon">
-                    Meu carrinho <span class="icon">
-                        <i class="fa fa-shopping-bag"></i>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown">
+                    <span class="navbar-toggler-icon">
+                        <i class="fas fa-bars"></i>
                     </span>
-                  </a>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reservas"><b>Reservas</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicos"><b>Serviços</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cardapio"><b>Cardápio</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#depoimentos"><b>Depoimentos</b></a>
+                        </li>
+                    </ul>
+                    <a class="btn btn-white btn-icon">
+                        Meu carrinho <span class="icon">
+                            <i class="fa fa-shopping-bag"></i>
+                        </span>
+                    </a>
                 </div>
-              </nav>
-            </div>
+            </nav>
+        </div>
         </div>
     </section>
 
@@ -59,7 +62,8 @@
                     <div class="d-flex text-banner">
                         <h1><b>Escolha sua comida <b class="color-primary">favorita.</b></b></h1>
                         <p>
-                            Aproveite nosso cardápio! Escolha o que desejar e receba em sua casa de forma simples rápida e segura.
+                            Aproveite nosso cardápio! Escolha o que desejar e receba em sua casa de forma simples rápida
+                            e segura.
                         </p>
                         <div>
                             <a class="btn btn-yellow mt-4 mr-3">
@@ -154,6 +158,129 @@
 
     <section class="cardapio" id="cardapio">
 
+        <div class="background-cardapio"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <span class="hint-title"><b>Cardápio</b></span>
+                    <h1 class="title">
+                        <b>Conheça o nosso cardápio</b>
+                    </h1>
+                </div>
+
+                <div class="col-12 container-menu text-center">
+                    <a class="btn btn-white btn-sm mr-3 active">
+                        <i class="fas fa-hamburger"></i>&nbsp; Burguers
+                    </a>
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-pizza-slice"></i>&nbsp; Pizzas
+                    </a>
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-drumstick-bite"></i>&nbsp; Cusrrasco
+                    </a>
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-bacon"></i>&nbsp; Steaks
+                    </a>
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-cocktail"></i>&nbsp; Bebidas
+                    </a>
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-ice-cream"></i>&nbsp; Sobremesas
+                    </a>
+                </div>
+
+                <div class="col-12">
+                    <div class="row" id="itensCardapio">
+
+                        <div class="col-3 mb-5">
+                            <div class="card card-item">
+                                <div class="img-produto">
+                                    <img src="img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg" alt="Hamburguer">
+                                </div>
+                                <p class="title-produto text-center mt-4">
+                                    <b>Nome</b>
+                                </p>
+                                <p class="price-produto text-center">
+                                    <b>R$ 154,90</b>
+                                </p>
+                                <div class="add-carrinho">
+                                    <span class="btn-menos"><i class="fas fa-minus"></i></span>
+                                    <span class="add-numero-itens">0</span>
+                                    <span class="btn-mais"><i class="fas fa-plus"></i></span>
+                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mb-5">
+                            <div class="card card-item">
+                                <div class="img-produto">
+                                    <img src="img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg" alt="Hamburguer">
+                                </div>
+                                <p class="title-produto text-center mt-4">
+                                    <b>Nome</b>
+                                </p>
+                                <p class="price-produto text-center">
+                                    <b>R$ 154,90</b>
+                                </p>
+                                <div class="add-carrinho">
+                                    <span class="btn-menos"><i class="fas fa-minus"></i></span>
+                                    <span class="add-numero-itens">0</span>
+                                    <span class="btn-mais"><i class="fas fa-plus"></i></span>
+                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mb-5">
+                            <div class="card card-item">
+                                <div class="img-produto">
+                                    <img src="img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg" alt="Hamburguer">
+                                </div>
+                                <p class="title-produto text-center mt-4">
+                                    <b>Nome</b>
+                                </p>
+                                <p class="price-produto text-center">
+                                    <b>R$ 154,90</b>
+                                </p>
+                                <div class="add-carrinho">
+                                    <span class="btn-menos"><i class="fas fa-minus"></i></span>
+                                    <span class="add-numero-itens">0</span>
+                                    <span class="btn-mais"><i class="fas fa-plus"></i></span>
+                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mb-5">
+                            <div class="card card-item">
+                                <div class="img-produto">
+                                    <img src="img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg" alt="Hamburguer">
+                                </div>
+                                <p class="title-produto text-center mt-4">
+                                    <b>Nome</b>
+                                </p>
+                                <p class="price-produto text-center">
+                                    <b>R$ 154,90</b>
+                                </p>
+                                <div class="add-carrinho">
+                                    <span class="btn-menos"><i class="fas fa-minus"></i></span>
+                                    <span class="add-numero-itens">0</span>
+                                    <span class="btn-mais"><i class="fas fa-plus"></i></span>
+                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <a class="btn btn-white btn-sm">
+                        Ver mais
+                    </a>
+                </div>
+
+            </div>
     </section>
 
     <section class="depoimentos" id="depoimentos">
@@ -174,4 +301,5 @@
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>
