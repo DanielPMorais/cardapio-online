@@ -4,7 +4,7 @@ $(document).ready(function (){
 
 const cardapio = {};
 
-const MEU_CARRINHO = [];
+let MEU_CARRINHO = [];
 
 cardapio.eventos = {
 
@@ -58,7 +58,7 @@ cardapio.metodos = {
     // clique no botão de ver mais
     verMais: () => {
 
-        const ativo = $(".container-menu a.active")
+        let ativo = $(".container-menu a.active")
         .attr('id')
         .split('menu-')[1];
 
@@ -71,7 +71,7 @@ cardapio.metodos = {
     // diminuir a quantidade do item no cardápio
     diminuirQuantidade: (id) => {
         
-        const qntdAtual = parseInt($("#qntd-" + id).text());
+        let qntdAtual = parseInt($("#qntd-" + id).text());
 
         if (qntdAtual > 0) {
             $("#qntd-" + id).text(qntdAtual - 1);
@@ -82,7 +82,7 @@ cardapio.metodos = {
     // aumentar a quantidade do item no cardápio
     aumentarQuantidade: (id) => {
 
-        const qntdAtual = parseInt($("#qntd-" + id).text());
+        let qntdAtual = parseInt($("#qntd-" + id).text());
         $("#qntd-" + id).text(qntdAtual + 1);
 
     },
@@ -90,12 +90,12 @@ cardapio.metodos = {
     // adicionar ao carrinho o item do cardápio
     adicionarAoCarrinho: (id) => {
 
-        const qntdAtual = parseInt($("#qntd-" + id).text());
+        let qntdAtual = parseInt($("#qntd-" + id).text());
 
         if (qntdAtual > 0) {
 
             // obter a categoria ativa
-            const categoria = $(".container-menu a.active").attr('id').split('menu-')[1];
+            let categoria = $(".container-menu a.active").attr('id').split('menu-')[1];
 
             // obtem a lista de itens
             let filtro = MENU[categoria];
@@ -158,9 +158,9 @@ cardapio.metodos = {
     //abrir a modal de carrinho
     abrirCarrinho: (abrir) => {
 
-        if (abrir){
+        if (abrir) {
             $("#modalCarrinho").removeClass('hidden');
-            // cardapio.metodos.carregarEtapa(1);
+            cardapio.metodos.carregarCarrinho();
         }
         else {
             $("#modalCarrinho").addClass('hidden');
@@ -230,9 +230,80 @@ cardapio.metodos = {
     },
 
 
+    // carrega a lista de itens do carrinho
+    carregarCarrinho: () => {
 
+        cardapio.metodos.carregarEtapa(1);
 
+        if (MEU_CARRINHO.length > 0) {
 
+            $("#itensCarrinho").html('');
+
+            $.each(MEU_CARRINHO, (i, e) => {
+
+                let temp = cardapio.templates.itemCarrinho.replace(/\${img}/g, e.img)
+                .replace(/\${name}/g, e.name)
+                .replace(/\${price}/g, e.price.toFixed(2).replace('.', ','))
+                .replace(/\${id}/g, e.id)
+                .replace(/\${qntd}/g, e.qntd);
+
+                $("#itensCarrinho").append(temp);
+
+            })
+
+        }
+        else {
+
+            $("#itensCarrinho").html('<p class="carrinho-vazio"><i class="fa fa-shopping-bag"></i> Seu carrinho está vazio.</p>');
+
+        }
+
+    },
+
+    // diminuir a quantidade do item no carrinho
+    diminuirQuantidadeCarrinho: (id) => {
+
+        let qntdAtual = parseInt($("#qntd-carrinho-" + id).text());
+
+        if (qntdAtual > 1) {
+            $("#qntd-carrinho-" + id).text(qntdAtual - 1);
+            cardapio.metodos.atualizarCarrinho(id, qntdAtual - 1);
+        }
+        else {
+            cardapio.metodos.removerItemCarrinho(id);
+        }
+    },
+
+    // aumentar a quantidade do item no carrinho
+    aumentarQuantidadeCarrinho: (id) => {
+
+        let qntdAtual = parseInt($("#qntd-carrinho-" + id).text());
+        $("#qntd-carrinho-" + id).text(qntdAtual + 1);
+        cardapio.metodos.atualizarCarrinho(id, qntdAtual + 1);
+
+    },
+
+    // botao remover item do carrinho
+    removerItemCarrinho: (id) => {
+
+        MEU_CARRINHO = $.grep(MEU_CARRINHO, (e, i) => { return e.id != id });
+        cardapio.metodos.carregarCarrinho();
+
+        // atualiza o botao carrinho com a quantidade atualizada
+        cardapio.metodos.atualizarBadgeTotal();
+
+    },
+
+    // atualiza o carrinho com a quantidade atual
+    atualizarCarrinho: (id, qntd) => {
+
+        let objIndex = MEU_CARRINHO.findIndex((obj => obj.id == id ));
+        MEU_CARRINHO[objIndex].qntd = qntd;
+
+        // atualiza o botao carrinho com a quantidade atualizada
+        cardapio.metodos.atualizarBadgeTotal();
+
+    },
 
     mensagem: (texto, cor = 'red', tempo = 3500) => {
 
@@ -278,6 +349,25 @@ cardapio.templates = {
             </div>
         </div>
     </div>
+    `,
+
+    itemCarrinho: `
+                <div class="col-12 item-carrinho">
+                    <div class="img-produto">
+                        <img src="\${img}"
+                            alt="">
+                    </div>
+                    <div class="dados-produto">
+                        <p class="title-produto"><b>\${name}</b></p>
+                        <p class="price-produto"><b>R$ \${price}</b></p>
+                    </div>
+                    <div class="add-carrinho">
+                        <span class="btn-menos" onclick="cardapio.metodos.diminuirQuantidadeCarrinho('\${id}')"><i class="fas fa-minus"></i></span>
+                        <span class="add-numero-itens" id="qntd-carrinho-\${id}">\${qntd}</span>
+                        <span class="btn-mais" onclick="cardapio.metodos.aumentarQuantidadeCarrinho('\${id}')"><i class="fas fa-plus"></i></span>
+                        <span class="btn btn-remove" onclick="cardapio.metodos.removerItemCarrinho('\${id}')"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
     `
 
 }
