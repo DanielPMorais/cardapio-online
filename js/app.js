@@ -10,6 +10,8 @@ let MEU_ENDERECO = null;
 let VALOR_CARRINHO = 0;
 let VALOR_ENTREGA = 5;
 
+let CELULAR_EMPRESA = '5512981241765';
+
 cardapio.eventos = {
 
     init: () => {
@@ -302,19 +304,19 @@ cardapio.metodos = {
 
     },
     
-        // atualiza o carrinho com a quantidade atual
-        atualizarCarrinho: (id, qntd) => {
-    
-            let objIndex = MEU_CARRINHO.findIndex((obj => obj.id == id ));
-            MEU_CARRINHO[objIndex].qntd = qntd;
-    
-            // atualiza o botao carrinho com a quantidade atualizada
-            cardapio.metodos.atualizarBadgeTotal();
+    // atualiza o carrinho com a quantidade atual
+    atualizarCarrinho: (id, qntd) => {
 
-            // atualiza os valores totais do carrinho
-            cardapio.metodos.carregarValores();
-    
-        },
+        let objIndex = MEU_CARRINHO.findIndex((obj => obj.id == id ));
+        MEU_CARRINHO[objIndex].qntd = qntd;
+
+        // atualiza o botao carrinho com a quantidade atualizada
+        cardapio.metodos.atualizarBadgeTotal();
+
+        // atualiza os valores totais do carrinho
+        cardapio.metodos.carregarValores();
+
+    },
     
     // carrega valores de Subtotal, Entrega e Total
     carregarValores: () => {
@@ -455,6 +457,67 @@ cardapio.metodos = {
         }
 
         cardapio.metodos.carregarEtapa(3)
+        cardapio.metodos.carregarResumo();
+
+    },
+
+    // carrega a etapa de resumo do pedido
+    carregarResumo: () => {
+
+        $("#listaItensResumo").html('');
+
+        $.each(MEU_CARRINHO, (i, e) =>{
+
+            let temp = cardapio.templates.itemResumo.replace(/\${img}/g, e.img)
+                .replace(/\${name}/g, e.name)
+                .replace(/\${price}/g, e.price.toFixed(2).replace('.', ','))
+                .replace(/\${qntd}/g, e.qntd);
+
+            $("#listaItensResumo").append(temp);
+
+        });
+
+        $("#resumoEndereco").html(`${MEU_ENDERECO.endereco}, ${MEU_ENDERECO.numero}, ${MEU_ENDERECO.bairro}`);
+        $("#cidadeEndereco").html(`${MEU_ENDERECO.cidade}-${MEU_ENDERECO.uf} | ${MEU_ENDERECO.cep} | ${MEU_ENDERECO.complemento}`);
+        
+        cardapio.metodos.finalizarPedido();
+
+    },
+
+    // atualiza o link do botão do whatsapp
+    finalizarPedido : () => {
+
+        if (MEU_CARRINHO.length > 0 && MEU_CARRINHO != null) {
+
+            let texto = 'Olá! gostaria de fazer um pedido:';
+            texto += `\n*Itens do pedido:*\n\n\${itens}`;
+            texto += `\n*Endereço de entrega:*`;
+            texto += `\n${MEU_ENDERECO.endereco}, ${MEU_ENDERECO.numero}, ${MEU_ENDERECO.bairro}`;
+            texto += `\n${MEU_ENDERECO.cidade}-${MEU_ENDERECO.uf} | ${MEU_ENDERECO.cep} | ${MEU_ENDERECO.complemento}`;
+            texto += `\n\n*Total (com entrega): R$ ${(VALOR_CARRINHO + VALOR_ENTREGA).toFixed(2).replace('.', ',')}*`;
+
+            let itens = '';
+
+            $.each(MEU_CARRINHO, (i, e) => {
+
+                itens += `*${e.qntd}x* ${e.name} ....... R$ ${e.price.toFixed(2).replace('.', ',')} \n`;
+
+                // ultimo item
+                if ((i + 1) == MEU_CARRINHO.length) {
+
+                    texto = texto.replace(/\${itens}/g, itens);
+
+                    // converte a URL
+                    let encode = encodeURI(texto);
+                    let URL = `https://wa.me/${CELULAR_EMPRESA}?text=${encode}`;
+
+                    $("#btnEtapaResumo").attr('href', URL);
+
+                }
+
+            })
+
+        }
 
     },
 
@@ -520,6 +583,25 @@ cardapio.templates = {
                         <span class="btn-mais" onclick="cardapio.metodos.aumentarQuantidadeCarrinho('\${id}')"><i class="fas fa-plus"></i></span>
                         <span class="btn btn-remove" onclick="cardapio.metodos.removerItemCarrinho('\${id}')"><i class="fas fa-times"></i></span>
                     </div>
+                </div>
+    `,
+
+    itemResumo: `
+                <div class="col-12 item-carrinho resumo">
+                    <div class="img-produto-resumo">
+                        <img src="\${img}" alt="">
+                    </div>
+                    <div class="dados-produto">
+                        <p class="title-produto-resumo">
+                            <b>\${name}</b>
+                        </p>
+                        <p class="price-produto-resumo">
+                            <b>R$ \${price}</b>
+                        </p>
+                    </div>
+                    <p class="quantidade-produto-resumo">
+                        x <b>\${qntd}</b>
+                    </p>
                 </div>
     `
 
