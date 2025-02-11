@@ -10,13 +10,18 @@ let MEU_ENDERECO = null;
 let VALOR_CARRINHO = 0;
 let VALOR_ENTREGA = 5;
 
+let INSTAGRAM_EMPRESA = 'vmantenas';
+let FACEBOOK_EMPRESA = 'vm.antenas.7?locale=pt_BR';
 let CELULAR_EMPRESA = '5512981241765';
 
 cardapio.eventos = {
 
     init: () => {
         cardapio.metodos.obterItensCardapio();
-        cardapio.metodos.carregarBotaoReserva();
+        cardapio.metodos.carregarBotaoLigar();
+        cardapio.metodos.carregarBotaoInstagram();
+        cardapio.metodos.carregarBotaoFacebook();
+        cardapio.metodos.carregarBotaoWhatsapp();
         cardapio.metodos.carregarBotaoReserva();
     }
 
@@ -534,14 +539,41 @@ cardapio.metodos = {
         $("#btnReserva").attr('href', URL);
 
     },
-
+    
     // carrega o botao de ligar
     carregarBotaoLigar: () => {
-
-        $("#btnLigar").attr('href', `tel${CELULAR_EMPRESA}`);
-
+        
+        $("#btnLigar").attr('href', `tel:${CELULAR_EMPRESA}`);
+        
     },
 
+    // carrega o link do botao Instagram
+    carregarBotaoInstagram: () => {
+        
+        let URL = `https://instagram.com/${INSTAGRAM_EMPRESA}`;
+        
+        $(".btnInstagram").attr('href', URL);
+        
+    },
+    
+    // carrega o link do botao Facebook
+    carregarBotaoFacebook: () => {
+
+        let URL = `https://facebook.com/${FACEBOOK_EMPRESA}`;
+
+        $(".btnFacebook").attr('href', URL);
+
+    },
+    
+    // carrega o link do botao Whatsapp
+    carregarBotaoWhatsapp: () => {
+
+        let URL = `https://wa.me/${CELULAR_EMPRESA}`;
+
+        $(".btnWhatsapp").attr('href', URL);
+
+    },
+    
     // abre o depoimento
     abrirDepoimento: (depoimento) => {
 
